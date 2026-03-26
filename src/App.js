@@ -4,6 +4,26 @@ const GoldenSignature = () => {
   const [scrollY, setScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [formData, setFormData] = useState({ name: '', company: '', email: '', phone: '', interest: '', message: '' });
+  const [formLoading, setFormLoading] = useState(false);
+  const [formSent, setFormSent] = useState(false);
+  const [formError, setFormError] = useState('');
+
+  const handleSubmit = async () => {
+    if (!formData.name || !formData.email) { setFormError('Name and email are required'); return; }
+    setFormLoading(true);
+    setFormError('');
+    try {
+      const res = await fetch('https://aup3wz6azh.execute-api.us-east-1.amazonaws.com/prod/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (res.ok) { setFormSent(true); setFormData({ name: '', company: '', email: '', phone: '', interest: '', message: '' }); }
+      else setFormError('Something went wrong. Please try again.');
+    } catch (e) { setFormError('Failed to send. Please email us directly.'); }
+    finally { setFormLoading(false); }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -471,25 +491,35 @@ const GoldenSignature = () => {
           <div className="section-label">Get In Touch</div>
           <h2 className="section-title" style={{ marginBottom: 16 }}>Ready to Build<br />Something Remarkable?</h2>
           <p className="section-sub" style={{ margin: '0 auto' }}>Book a demo of SmartLift or discuss a custom AI project for your business.</p>
-          <div className="contact-form">
-            <div className="form-group">
-              <input className="form-input" placeholder="Your Name" />
-              <input className="form-input" placeholder="Company" />
+          {formSent ? (
+            <div style={{ marginTop: 48, padding: 48, background: 'rgba(212,168,67,0.08)', border: '1px solid rgba(212,168,67,0.25)', borderRadius: 16, textAlign: 'center' }}>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>✦</div>
+              <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 12 }}>Message Sent!</h3>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", color: 'var(--text-dim)' }}>Thanks for reaching out. We'll be in touch within 24 hours.</p>
             </div>
-            <div className="form-group">
-              <input className="form-input" type="email" placeholder="Email Address" />
-              <input className="form-input" placeholder="Phone (optional)" />
+          ) : (
+            <div className="contact-form">
+              <div className="form-group">
+                <input className="form-input" placeholder="Your Name *" value={formData.name} onChange={e => setFormData(p => ({...p, name: e.target.value}))} />
+                <input className="form-input" placeholder="Company" value={formData.company} onChange={e => setFormData(p => ({...p, company: e.target.value}))} />
+              </div>
+              <div className="form-group">
+                <input className="form-input" type="email" placeholder="Email Address *" value={formData.email} onChange={e => setFormData(p => ({...p, email: e.target.value}))} />
+                <input className="form-input" placeholder="Phone (optional)" value={formData.phone} onChange={e => setFormData(p => ({...p, phone: e.target.value}))} />
+              </div>
+              <select className="form-input" style={{ cursor: 'pointer' }} value={formData.interest} onChange={e => setFormData(p => ({...p, interest: e.target.value}))}>
+                <option value="" disabled>I'm interested in...</option>
+                <option>SmartLift Demo</option>
+                <option>Custom AI Development</option>
+                <option>General Inquiry</option>
+              </select>
+              <textarea className="form-input" placeholder="Tell us about your project or questions..." value={formData.message} onChange={e => setFormData(p => ({...p, message: e.target.value}))} />
+              {formError && <p style={{ color: '#FF6B6B', fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>{formError}</p>}
+              <button className="btn-primary" style={{ alignSelf: 'stretch' }} onClick={handleSubmit} disabled={formLoading}>
+                {formLoading ? 'Sending...' : 'Send Message →'}
+              </button>
             </div>
-            <select className="form-input" style={{ cursor: 'pointer' }}>
-              <option value="" disabled selected>I'm interested in...</option>
-              <option>SmartLift Standard ($299/mo)</option>
-              <option>SmartLift Pro ($399/mo)</option>
-              <option>Custom AI Development</option>
-              <option>General Inquiry</option>
-            </select>
-            <textarea className="form-input" placeholder="Tell us about your project or questions..." />
-            <button className="btn-primary" style={{ alignSelf: 'stretch' }}>Send Message →</button>
-          </div>
+          )}
         </div>
       </section>
 
