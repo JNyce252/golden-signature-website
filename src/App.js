@@ -465,17 +465,18 @@ const GoldenSignature = () => {
             <div className="section-label">About Us</div>
             <h2 className="section-title" style={{ marginBottom: 24 }}>Built by a Developer<br />Who Understands Business</h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 17, color: 'var(--text-dim)', lineHeight: 1.8, marginBottom: 24, fontWeight: 300 }}>
-              The Golden Signature was founded by Jeremy Wilson — a full-stack developer and AI architect 
-              based in Texas. We don't just build software; we build solutions that solve real problems 
-              for real businesses.
+              The Golden Signature was founded by Jeremy Wilson — a developer and AWS Cloud Engineer 
+              with a Security domain background, based in Texas. With roots in the U.S. Army and 
+              a strong foundation in project management, Jeremy brings discipline, structure, and 
+              strategic thinking to every solution he builds.
             </p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 17, color: 'var(--text-dim)', lineHeight: 1.8, marginBottom: 40, fontWeight: 300 }}>
-              Every product we create is built on AWS infrastructure, powered by the latest AI models, 
-              and designed with the end user in mind. We specialize in turning complex business workflows 
-              into intelligent, automated systems.
+              We don't just build software — we build solutions that solve real problems 
+              for real businesses. Every product is built on AWS infrastructure, powered by the 
+              latest AI models, and designed with the end user in mind.
             </p>
             <div style={{ display: 'flex', gap: 32 }}>
-              {[['AWS', 'Cloud Infrastructure'], ['Bedrock', 'AI & ML'], ['Texas', 'Based & Built']].map(([tech, label]) => (
+              {[['AWS', 'Cloud Engineer'], ['Army', 'Veteran'], ['Texas', 'Based & Built']].map(([tech, label]) => (
                 <div key={tech}>
                   <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--gold-light)' }}>{tech}</div>
                   <div style={{ fontSize: 13, color: 'var(--text-dim)', fontFamily: "'DM Sans', sans-serif" }}>{label}</div>
