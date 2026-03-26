@@ -355,46 +355,21 @@ const GoldenSignature = () => {
           <div className="section-label">Our Products</div>
           <h2 className="section-title" style={{ marginBottom: 16 }}>Software Built for<br />Your Industry</h2>
           <p className="section-sub" style={{ marginBottom: 0 }}>Each product is purpose-built with AI at its core — not bolted on as an afterthought.</p>
-          <div className="products-grid">
+          <div style={{ maxWidth: 600, margin: '64px auto 0' }}>
             <div className="product-card featured">
               <div className="product-icon" style={{ background: 'rgba(212,168,67,0.15)' }}>🏗️</div>
               <span className="product-tag" style={{ background: 'rgba(212,168,67,0.15)', color: 'var(--gold-light)' }}>Live ✦</span>
               <div className="product-name">SmartLift</div>
               <p className="product-desc">AI-powered lead generation and CRM platform for elevator service companies. Discover prospects, score leads, generate proposals, and close deals — all in one place.</p>
               <ul className="product-features">
-                <li>Google Places prospect discovery</li>
+                <li>Google Places prospect discovery with 60-mile radius search</li>
                 <li>AI lead scoring via Amazon Bedrock</li>
-                <li>TDLR inspection data integration</li>
-                <li>Automated proposal generation</li>
-                <li>Pipeline & route optimization</li>
+                <li>TDLR inspection data integration (37,000+ records)</li>
+                <li>Automated proposal & introduction email generation</li>
+                <li>Pipeline management, route optimizer & analytics</li>
+                <li>Hunter.io contact intelligence</li>
               </ul>
-              <span className="product-link" style={{color: "var(--gold-light)"}}>Request a Demo →</span>
-            </div>
-            <div className="product-card">
-              <div className="product-icon" style={{ background: 'rgba(108,99,255,0.15)' }}>🏢</div>
-              <span className="product-tag" style={{ background: 'rgba(108,99,255,0.15)', color: '#A09BFF' }}>In Development</span>
-              <div className="product-name">PropIQ</div>
-              <p className="product-desc">AI-powered property management intelligence for commercial real estate. Automate tenant communications, predict maintenance needs, and optimize occupancy.</p>
-              <ul className="product-features">
-                <li>Predictive maintenance scheduling</li>
-                <li>Tenant satisfaction analytics</li>
-                <li>Automated lease management</li>
-                <li>Real-time occupancy tracking</li>
-              </ul>
-              <span className="product-link" style={{ color: 'var(--text-dim)', cursor: 'default' }}>Coming Soon</span>
-            </div>
-            <div className="product-card">
-              <div className="product-icon" style={{ background: 'rgba(255,107,53,0.15)' }}>📊</div>
-              <span className="product-tag" style={{ background: 'rgba(255,107,53,0.15)', color: '#FF8C63' }}>Planned</span>
-              <div className="product-name">SurveySignal</div>
-              <p className="product-desc">Intelligent survey and market research platform that automatically analyzes responses, identifies trends, and generates actionable business insights.</p>
-              <ul className="product-features">
-                <li>AI-powered response analysis</li>
-                <li>Real-time sentiment tracking</li>
-                <li>Competitive intelligence reports</li>
-                <li>Custom ML model training</li>
-              </ul>
-              <span className="product-link" style={{ color: 'var(--text-dim)', cursor: 'default' }}>Coming Soon</span>
+              <button className="btn-primary" style={{ marginTop: 8 }} onClick={() => document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})}>Request a Demo →</button>
             </div>
           </div>
         </div>
@@ -533,20 +508,4 @@ const GoldenSignature = () => {
   );
 };
 
-export default GoldenSignature;            <div style={{ maxWidth: 600, margin: '64px auto 0' }}>
-            <div className="product-card featured">
-              <div className="product-icon" style={{ background: 'rgba(212,168,67,0.15)' }}>🏗️</div>
-              <span className="product-tag" style={{ background: 'rgba(212,168,67,0.15)', color: 'var(--gold-light)' }}>Live ✦</span>
-              <div className="product-name">SmartLift</div>
-              <p className="product-desc">AI-powered lead generation and CRM platform for elevator service companies. Discover prospects, score leads, generate proposals, and close deals — all in one place.</p>
-              <ul className="product-features">
-                <li>Google Places prospect discovery with 60-mile radius search</li>
-                <li>AI lead scoring via Amazon Bedrock</li>
-                <li>TDLR inspection data integration (37,000+ records)</li>
-                <li>Automated proposal & introduction email generation</li>
-                <li>Pipeline management, route optimizer & analytics</li>
-                <li>Hunter.io contact intelligence</li>
-              </ul>
-              <button className="btn-primary" style={{ marginTop: 8 }} onClick={() => document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})}>Request a Demo →</button>
-            </div>
-          </div>
+export default GoldenSignature;
