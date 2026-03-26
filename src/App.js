@@ -533,4 +533,20 @@ const GoldenSignature = () => {
   );
 };
 
-export default GoldenSignature;
+export default GoldenSignature;            <div style={{ maxWidth: 600, margin: '64px auto 0' }}>
+            <div className="product-card featured">
+              <div className="product-icon" style={{ background: 'rgba(212,168,67,0.15)' }}>🏗️</div>
+              <span className="product-tag" style={{ background: 'rgba(212,168,67,0.15)', color: 'var(--gold-light)' }}>Live ✦</span>
+              <div className="product-name">SmartLift</div>
+              <p className="product-desc">AI-powered lead generation and CRM platform for elevator service companies. Discover prospects, score leads, generate proposals, and close deals — all in one place.</p>
+              <ul className="product-features">
+                <li>Google Places prospect discovery with 60-mile radius search</li>
+                <li>AI lead scoring via Amazon Bedrock</li>
+                <li>TDLR inspection data integration (37,000+ records)</li>
+                <li>Automated proposal & introduction email generation</li>
+                <li>Pipeline management, route optimizer & analytics</li>
+                <li>Hunter.io contact intelligence</li>
+              </ul>
+              <button className="btn-primary" style={{ marginTop: 8 }} onClick={() => document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})}>Request a Demo →</button>
+            </div>
+          </div>
