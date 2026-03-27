@@ -332,7 +332,7 @@ const GoldenSignature = () => {
           <li><a onClick={() => scrollTo('about')}>About</a></li>
           <li><a onClick={() => scrollTo('contact')}>Contact</a></li>
         </ul>
-        <button className="nav-cta" onClick={() => scrollTo('contact')}>Book a Demo</button>
+
       </nav>
 
       {/* Hero */}
