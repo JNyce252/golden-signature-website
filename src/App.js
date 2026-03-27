@@ -392,8 +392,7 @@ const GoldenSignature = () => {
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: 'var(--gold)', fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>Client Deployment</p>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: 'var(--text)', fontWeight: 600, marginBottom: 4 }}>Southwest Cabs Elevator Services</p>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', marginBottom: 12, lineHeight: 1.6 }}>Since 1984, Southwest Cabs has delivered custom elevator cab interiors, ADA-compliant upgrades, LED lighting, and lobby modernization across Texas, Oklahoma, and the Midwest. Built in Texas. Trusted everywhere.</p>
-                <a href="https://southwestcabs.com" target="_blank" rel="noreferrer" style={{ display: 'inline-block', fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--gold-light)', marginBottom: 16, textDecoration: 'none' }}>southwestcabs.com →</a>
-                <button className="btn-secondary" style={{ fontSize: 14 }} onClick={() => document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})}>Get SmartLift for Your Business →</button>
+                <a href="https://southwestcabs.com" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'var(--gold-light)', textDecoration: 'none', fontWeight: 600 }}>southwestcabs.com →</a>
               </div>
             </div>
           </div>
