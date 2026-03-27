@@ -389,7 +389,29 @@ const GoldenSignature = () => {
                 <li>Pipeline management, route optimizer & analytics</li>
                 <li>Hunter.io contact intelligence</li>
               </ul>
-              <button className="btn-primary" style={{ marginTop: 8 }} onClick={() => document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})}>Request a Demo →</button>
+              <div style={{ marginTop: 24, padding: '16px 20px', background: 'rgba(212,168,67,0.08)', border: '1px solid rgba(212,168,67,0.2)', borderRadius: 12 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: 'var(--gold)', fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>Client Deployment</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: 'var(--text)', fontWeight: 600, marginBottom: 4 }}>Southwest Cabs Elevator Services</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', marginBottom: 16 }}>Dallas, TX — Active platform deployment</p>
+                <button className="btn-secondary" style={{ fontSize: 14 }} onClick={() => document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})}>Get SmartLift for Your Business →</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Screenshots */}
+          <div style={{ marginTop: 64 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'var(--text-dim)', textAlign: 'center', marginBottom: 32, letterSpacing: 2, textTransform: 'uppercase', fontWeight: 600 }}>Platform Screenshots</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
+              {[
+                ['https://s3.us-east-1.amazonaws.com/thegoldensignature.com/assets/smartlift-prospect.png', 'Prospect Intelligence — AI analysis, TDLR records, contact data'],
+                ['https://s3.us-east-1.amazonaws.com/thegoldensignature.com/assets/smartlift-dashboard.png', 'Main Dashboard — pipeline value, quick actions, urgent alerts'],
+                ['https://s3.us-east-1.amazonaws.com/thegoldensignature.com/assets/smartlift-analytics.png', 'Analytics Dashboard — AI lead intelligence and performance metrics'],
+              ].map(([src, caption]) => (
+                <div key={src} style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', background: 'var(--bg-3)' }}>
+                  <img src={src} alt={caption} style={{ width: '100%', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.06)' }} />
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', padding: '12px 16px', margin: 0, lineHeight: 1.5 }}>{caption}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
