@@ -391,7 +391,8 @@ const GoldenSignature = () => {
               <div style={{ marginTop: 24, padding: '16px 20px', background: 'rgba(212,168,67,0.08)', border: '1px solid rgba(212,168,67,0.2)', borderRadius: 12 }}>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: 'var(--gold)', fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>Client Deployment</p>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: 'var(--text)', fontWeight: 600, marginBottom: 4 }}>Southwest Cabs Elevator Services</p>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', marginBottom: 16 }}>Dallas, TX — Active platform deployment</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', marginBottom: 12, lineHeight: 1.6 }}>Since 1984, Southwest Cabs has delivered custom elevator cab interiors, ADA-compliant upgrades, LED lighting, and lobby modernization across Texas, Oklahoma, and the Midwest. Built in Texas. Trusted everywhere.</p>
+                <a href="https://southwestcabs.com" target="_blank" rel="noreferrer" style={{ display: 'inline-block', fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--gold-light)', marginBottom: 16, textDecoration: 'none' }}>southwestcabs.com →</a>
                 <button className="btn-secondary" style={{ fontSize: 14 }} onClick={() => document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})}>Get SmartLift for Your Business →</button>
               </div>
             </div>
