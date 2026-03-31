@@ -510,7 +510,7 @@ const GoldenSignature = () => {
         <div className="contact-inner">
           <div className="section-label">Get In Touch</div>
           <h2 className="section-title" style={{ marginBottom: 16 }}>Ready to Build<br />Something Remarkable?</h2>
-          <p className="section-sub" style={{ margin: '0 auto' }}>Book a demo of SmartLift or discuss a custom AI project for your business.</p>
+          <p className="section-sub" style={{ margin: '0 auto' }}>Schedule a SmartLift walkthrough or discuss a custom AI project for your business.</p>
           {formSent ? (
             <div style={{ marginTop: 48, padding: 48, background: 'rgba(212,168,67,0.08)', border: '1px solid rgba(212,168,67,0.25)', borderRadius: 16, textAlign: 'center' }}>
               <div style={{ fontSize: 48, marginBottom: 16 }}>✦</div>
@@ -529,7 +529,7 @@ const GoldenSignature = () => {
               </div>
               <select className="form-input" style={{ cursor: 'pointer' }} value={formData.interest} onChange={e => setFormData(p => ({...p, interest: e.target.value}))}>
                 <option value="" disabled>I'm interested in...</option>
-                <option>SmartLift Demo</option>
+                <option>SmartLift — Elevator Service Platform</option>
                 <option>Custom AI Development</option>
                 <option>General Inquiry</option>
               </select>
