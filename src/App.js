@@ -354,6 +354,7 @@ const GoldenSignature = () => {
           </p>
           <div className="hero-actions fade-up fade-up-4">
             <button className="btn-primary" onClick={() => scrollTo('products')}>See Our Products</button>
+          </div>
         </div>
       </section>
 
