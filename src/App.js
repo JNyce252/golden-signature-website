@@ -528,12 +528,7 @@ const GoldenSignature = () => {
                 <input className="form-input" type="email" placeholder="Email Address *" value={formData.email} onChange={e => setFormData(p => ({...p, email: e.target.value}))} />
                 <input className="form-input" placeholder="Phone (optional)" value={formData.phone} onChange={e => setFormData(p => ({...p, phone: e.target.value}))} />
               </div>
-              <select className="form-input" style={{ cursor: 'pointer' }} value={formData.interest} onChange={e => setFormData(p => ({...p, interest: e.target.value}))}>
-                <option value="" disabled>I'm interested in...</option>
-                <option>SmartLift — Elevator Service Platform</option>
-                <option>Custom AI Development</option>
-                <option>General Inquiry</option>
-              </select>
+
               <textarea className="form-input" placeholder="Tell us about your project or questions..." value={formData.message} onChange={e => setFormData(p => ({...p, message: e.target.value}))} />
               {formError && <p style={{ color: '#FF6B6B', fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>{formError}</p>}
               <button className="btn-primary" style={{ alignSelf: 'stretch' }} onClick={handleSubmit} disabled={formLoading}>
