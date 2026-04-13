@@ -884,7 +884,7 @@ const GoldenSignature = () => {
 
                     <div>
                       <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Anything else to add?</label>
-                      <textarea className="form-input" rows={3} placeholder="Any specific requirements, data sources, or features not listed above..." value={formData.additionalFeatures} onChange={e => setFormData(p => ({...p, additionalFeatures: e.target.value}))} style={{ resize: 'none' }} />
+                      <textarea className="form-input" rows={6} placeholder="Any specific requirements, data sources, or features not listed above..." value={formData.additionalFeatures} onChange={e => setFormData(p => ({...p, additionalFeatures: e.target.value}))} style={{ resize: 'vertical', minHeight: 140, width: '100%', boxSizing: 'border-box' }} />
                     </div>
                   </div>
                 )}
@@ -926,7 +926,7 @@ const GoldenSignature = () => {
 
                     <div style={{ marginBottom: 16 }}>
                       <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Do you have any design references or examples you like?</label>
-                      <textarea className="form-input" rows={3} placeholder="Links to websites, apps, or describe the style you're going for..." value={formData.designNotes} onChange={e => setFormData(p => ({...p, designNotes: e.target.value}))} style={{ resize: 'none' }} />
+                      <textarea className="form-input" rows={6} placeholder="Links to websites, apps, or describe the style you're going for..." value={formData.designNotes} onChange={e => setFormData(p => ({...p, designNotes: e.target.value}))} style={{ resize: 'vertical', minHeight: 140, width: '100%', boxSizing: 'border-box' }} />
                     </div>
 
 
