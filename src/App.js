@@ -509,7 +509,9 @@ const GoldenSignature = () => {
         <ul className="nav-links">
           <li><a onClick={() => scrollTo('products')}>Products</a></li>
           <li><a onClick={() => scrollTo('services')}>Services</a></li>
-          <li><a onClick={() => scrollTo('process')}>Process</a></li>
+          <li><a onClick={() => scrollTo('process')}>Process</a>
+          <a onClick={() => scrollTo('insights')}>Insights</a></li>
+          <li><a onClick={() => scrollTo('insights')}>Insights</a></li>
           <li><a onClick={() => scrollTo('pricing')}>Pricing</a></li>
           <li><a onClick={() => scrollTo('about')}>About</a></li>
           <li><a onClick={() => scrollTo('contact')}>Contact</a></li>
@@ -527,7 +529,7 @@ const GoldenSignature = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="mobile-menu" style={{ position: 'fixed' }}>
-          {['products', 'services', 'pricing', 'about', 'contact'].map(s => (
+          {['products', 'services', 'process', 'insights', 'pricing', 'about', 'contact'].map(s => (
             <a key={s} onClick={() => scrollTo(s)} style={{ textTransform: 'capitalize' }}>{s}</a>
           ))}
           <button className="btn-primary" onClick={() => scrollTo('contact')}>Start a Project</button>
@@ -739,6 +741,81 @@ const GoldenSignature = () => {
           </div>
           <div className="about-visual float">
             <span style={{ position: 'relative', zIndex: 1 }}>✦</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog / Insights */}
+      <section id="insights" style={{ padding: '120px 48px', background: 'var(--bg-2)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div className="section-label">Insights</div>
+          <h2 className="section-title" style={{ marginBottom: 16 }}>AI & Software<br />for Real Business</h2>
+          <p className="section-sub" style={{ marginBottom: 64 }}>Practical thinking on AI, software development, and building tools that actually work for trade service companies.</p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
+            {[
+              {
+                tag: 'AI + Elevators',
+                date: 'April 2026',
+                title: 'How AI is Changing Elevator Service Lead Generation in Texas',
+                excerpt: 'Texas has 37,000+ elevator inspection records publicly available through TDLR. Most elevator contractors have no idea this data exists. Here is how we built a platform that turns it into a competitive advantage.',
+                readTime: '4 min read',
+                color: 'rgba(212,168,67,0.1)',
+                borderColor: 'rgba(212,168,67,0.2)',
+                tagColor: 'var(--gold)',
+              },
+              {
+                tag: 'AWS Architecture',
+                date: 'March 2026',
+                title: 'Why We Build Everything on AWS Serverless — And Why It Matters for Small Business',
+                excerpt: 'When your infrastructure costs $60/month but can handle 10,000 users, that is not an accident. Here is the architecture behind Smarterlift and why serverless is the right choice for vertical SaaS.',
+                readTime: '6 min read',
+                color: 'rgba(108,99,255,0.1)',
+                borderColor: 'rgba(108,99,255,0.2)',
+                tagColor: '#A8A3FF',
+              },
+              {
+                tag: 'Business Strategy',
+                date: 'March 2026',
+                title: 'The Case for Vertical SaaS: Why Industry-Specific Software Wins',
+                excerpt: 'Salesforce is worth $200B. ServiceTitan is worth $9B. Toast is worth $12B. They all did the same thing — took a horizontal tool and rebuilt it for one specific industry. Here is why that model works every time.',
+                readTime: '5 min read',
+                color: 'rgba(74,222,128,0.1)',
+                borderColor: 'rgba(74,222,128,0.2)',
+                tagColor: '#4ade80',
+              },
+            ].map((post, i) => (
+              <div key={i} style={{ background: post.color, border: '1px solid ' + post.borderColor, borderRadius: 16, padding: 36, display: 'flex', flexDirection: 'column', gap: 16, transition: 'transform 0.2s', cursor: 'default' }}
+                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: post.tagColor, fontFamily: "'DM Sans', sans-serif" }}>{post.tag}</span>
+                  <span style={{ fontSize: 12, color: 'var(--text-dim)', fontFamily: "'DM Sans', sans-serif" }}>{post.date}</span>
+                </div>
+                <h3 style={{ fontSize: 20, fontWeight: 700, lineHeight: 1.3, letterSpacing: -0.3, color: 'var(--text)', margin: 0 }}>{post.title}</h3>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'var(--text-dim)', lineHeight: 1.7, margin: 0, flex: 1 }}>{post.excerpt}</p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                  <span style={{ fontSize: 12, color: 'var(--text-dim)', fontFamily: "'DM Sans', sans-serif" }}>{post.readTime}</span>
+                  <button onClick={() => scrollTo('contact')} style={{ fontSize: 13, fontWeight: 700, color: post.tagColor, background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Syne', sans-serif" }}>
+                    Get notified when published →
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 48, textAlign: 'center', padding: '40px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 16 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: 'var(--text-dim)', marginBottom: 20 }}>Get notified when new articles are published</p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <input
+                type="email"
+                placeholder="your@email.com"
+                style={{ padding: '12px 20px', borderRadius: 8, background: 'var(--bg)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text)', fontFamily: "'DM Sans', sans-serif", fontSize: 14, outline: 'none', minWidth: 280 }}
+              />
+              <button className="btn-primary" style={{ padding: '12px 28px' }} onClick={() => scrollTo('contact')}>
+                Subscribe →
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -972,6 +1049,7 @@ const GoldenSignature = () => {
           <a onClick={() => scrollTo('products')}>Products</a>
           <a onClick={() => scrollTo('services')}>Services</a>
           <a onClick={() => scrollTo('process')}>Process</a>
+          <a onClick={() => scrollTo('insights')}>Insights</a>
           <a onClick={() => scrollTo('contact')}>Contact</a>
           <a href="https://smarterlift.app" target="_blank" rel="noreferrer" style={{ color: 'var(--gold)', opacity: 0.7 }}>Smarterlift ↗</a>
         </div>
