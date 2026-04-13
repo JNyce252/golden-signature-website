@@ -70,6 +70,14 @@ const GoldenSignature = () => {
   }, []);
 
   useEffect(() => {
+    document.title = 'The Golden Signature — AI-Powered Custom Software for Business';
+    const meta = document.querySelector('meta[name="description"]') || document.createElement('meta');
+    meta.name = 'description';
+    meta.content = 'The Golden Signature builds custom AI-powered software for trade service companies and businesses. Smarterlift, CRM platforms, automation tools — built on AWS and deployed fast.';
+    document.head.appendChild(meta);
+  }, []);
+
+  useEffect(() => {
     // Phase 1: show logo after brief pause
     const t1 = setTimeout(() => setIntroPhase(1), 300);
     // Phase 2: burst
@@ -162,6 +170,11 @@ const GoldenSignature = () => {
           transition: opacity 0.2s;
         }
         .nav-cta:hover { opacity: 0.9; }
+        .hamburger { display: none !important; }
+        @media (max-width: 768px) {
+          .nav-cta { display: none !important; }
+          .hamburger { display: flex !important; }
+        }
 
         .hero {
           min-height: 100vh; display: flex; align-items: center; justify-content: center;
@@ -362,6 +375,18 @@ const GoldenSignature = () => {
         @media (max-width: 768px) {
           nav { padding: 16px 24px; }
           .nav-links { display: none; }
+          .mobile-menu {
+            position: fixed; inset: 0; z-index: 99;
+            background: rgba(5,5,8,0.98); backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 40px;
+          }
+          .mobile-menu a {
+            font-size: 32px; font-weight: 800; color: var(--text);
+            text-decoration: none; cursor: pointer; letter-spacing: -1px;
+            transition: color 0.2s;
+          }
+          .mobile-menu a:hover { color: var(--gold-light); }
           .hero { padding: 100px 24px 60px; }
           .stats-bar { gap: 32px; padding: 32px 24px; }
           .products, .services, .pricing, .about, .contact { padding: 80px 24px; }
@@ -484,12 +509,30 @@ const GoldenSignature = () => {
         <ul className="nav-links">
           <li><a onClick={() => scrollTo('products')}>Products</a></li>
           <li><a onClick={() => scrollTo('services')}>Services</a></li>
+          <li><a onClick={() => scrollTo('process')}>Process</a></li>
           <li><a onClick={() => scrollTo('pricing')}>Pricing</a></li>
           <li><a onClick={() => scrollTo('about')}>About</a></li>
           <li><a onClick={() => scrollTo('contact')}>Contact</a></li>
         </ul>
-
+        <button className="nav-cta" onClick={() => scrollTo('contact')} style={{ display: 'none' }}>Start a Project</button>
+        <button onClick={() => setMenuOpen(!menuOpen)} style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: 'var(--text)' }} className="hamburger">
+          {menuOpen ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          )}
+        </button>
       </nav>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="mobile-menu" style={{ position: 'fixed' }}>
+          {['products', 'services', 'pricing', 'about', 'contact'].map(s => (
+            <a key={s} onClick={() => scrollTo(s)} style={{ textTransform: 'capitalize' }}>{s}</a>
+          ))}
+          <button className="btn-primary" onClick={() => scrollTo('contact')}>Start a Project</button>
+        </div>
+      )}
 
       {/* Hero */}
       <section id="home" className="hero">
@@ -603,6 +646,34 @@ const GoldenSignature = () => {
                 <p className="service-desc">{desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process */}
+      <section id="process" style={{ padding: '120px 48px', background: 'var(--bg)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div className="section-label">How It Works</div>
+          <h2 className="section-title" style={{ marginBottom: 16 }}>From Idea to Launch<br />In Four Steps</h2>
+          <p className="section-sub" style={{ marginBottom: 64 }}>We move fast without cutting corners. Most projects go from kickoff to live demo in under 30 days.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 2 }}>
+            {[
+              { num: '01', title: 'Discovery Call', time: 'Day 1', desc: 'We learn your business, understand your workflow, and identify exactly where AI delivers the most value. You walk away with clarity on what to build and why.', icon: '◎' },
+              { num: '02', title: 'Proposal & Scope', time: 'Day 2–3', desc: 'You receive a detailed proposal — feature list, tech stack, timeline, and fixed pricing. No surprises. No hourly billing. Everything agreed upfront.', icon: '◈' },
+              { num: '03', title: 'Build & Demo', time: 'Week 1–3', desc: 'We build fast. You see a working demo within the first week. Real data, real AI, real functionality — not mockups. Feedback is incorporated immediately.', icon: '◆' },
+              { num: '04', title: 'Launch & Support', time: 'Week 3–4', desc: 'We deploy to production on AWS, configure your domain, and hand over the keys. Monthly management keeps everything running, updated, and improving.', icon: '✦' },
+            ].map((step, i) => (
+              <div key={step.num} style={{ padding: '48px 40px', background: i % 2 === 0 ? 'var(--bg-2)' : 'var(--bg-3)', position: 'relative', borderRight: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                <div style={{ fontSize: 48, color: 'rgba(212,168,67,0.12)', fontWeight: 800, letterSpacing: -2, marginBottom: 8, lineHeight: 1 }}>{step.num}</div>
+                <div style={{ fontSize: 24, color: 'var(--gold)', marginBottom: 16 }}>{step.icon}</div>
+                <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 4, letterSpacing: -0.3 }}>{step.title}</div>
+                <div style={{ fontSize: 12, color: 'var(--gold)', fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16, fontFamily: "'DM Sans', sans-serif" }}>{step.time}</div>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'var(--text-dim)', lineHeight: 1.7 }}>{step.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 48, display: 'flex', justifyContent: 'center' }}>
+            <button className="btn-primary" onClick={() => scrollTo('contact')}>Start the Process →</button>
           </div>
         </div>
       </section>
@@ -900,10 +971,11 @@ const GoldenSignature = () => {
         <div className="footer-links">
           <a onClick={() => scrollTo('products')}>Products</a>
           <a onClick={() => scrollTo('services')}>Services</a>
-          <a onClick={() => scrollTo('pricing')}>Pricing</a>
+          <a onClick={() => scrollTo('process')}>Process</a>
           <a onClick={() => scrollTo('contact')}>Contact</a>
+          <a href="https://smarterlift.app" target="_blank" rel="noreferrer" style={{ color: 'var(--gold)', opacity: 0.7 }}>Smarterlift ↗</a>
         </div>
-        <div className="footer-copy">© 2026 The Golden Signature · Built on AWS</div>
+        <div className="footer-copy">© 2026 The Golden Signature LLC · Dallas, Texas · Built on AWS</div>
       </footer>
     </div>
   );
