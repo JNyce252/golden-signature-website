@@ -778,7 +778,7 @@ const GoldenSignature = () => {
 
                     <div>
                       <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>What is the main problem you're solving? *</label>
-                      <textarea className="form-input" rows={4} placeholder="Describe your biggest pain point or opportunity. What's broken, slow, or missing in your current workflow?" value={formData.problem} onChange={e => setFormData(p => ({...p, problem: e.target.value}))} style={{ resize: 'none' }} />
+                      <textarea className="form-input" rows={6} placeholder="Describe your biggest pain point or opportunity. What's broken, slow, or missing in your current workflow?" value={formData.problem} onChange={e => setFormData(p => ({...p, problem: e.target.value}))} style={{ resize: 'vertical', minHeight: 140 }} />
                     </div>
                   </div>
                 )}
