@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const GoldenSignature = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [introPhase, setIntroPhase] = useState(0); // 0=loading, 1=logo, 2=burst, 3=reveal, 4=done
+  const [typedText, setTypedText] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [formData, setFormData] = useState({ step: 1, name: '', company: '', email: '', phone: '', industry: '', appType: '', primaryUsers: '', problem: '', features: [], integrations: [], additionalFeatures: '', timeline: '', budget: '', designNotes: '', message: '' });
@@ -66,6 +68,30 @@ const GoldenSignature = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Phase 1: show logo after brief pause
+    const t1 = setTimeout(() => setIntroPhase(1), 300);
+    // Phase 2: burst
+    const t2 = setTimeout(() => setIntroPhase(2), 1800);
+    // Phase 3: reveal site
+    const t3 = setTimeout(() => setIntroPhase(3), 2400);
+    // Phase 4: done — remove intro
+    const t4 = setTimeout(() => setIntroPhase(4), 3200);
+    return () => [t1,t2,t3,t4].forEach(clearTimeout);
+  }, []);
+
+  useEffect(() => {
+    if (introPhase < 4) return;
+    const text = 'We Build Software That Thinks.';
+    let i = 0;
+    const interval = setInterval(() => {
+      setTypedText(text.slice(0, i));
+      i++;
+      if (i > text.length) clearInterval(interval);
+    }, 45);
+    return () => clearInterval(interval);
+  }, [introPhase]);
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -346,6 +372,62 @@ const GoldenSignature = () => {
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+
+        @keyframes letterReveal { from { opacity: 0; transform: translateY(20px) rotateX(-90deg); } to { opacity: 1; transform: translateY(0) rotateX(0deg); } }
+        @keyframes goldenPulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes particleBurst { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; } }
+        @keyframes introSlideUp { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } }
+        @keyframes siteReveal { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+
+        .intro-overlay {
+          position: fixed; inset: 0; z-index: 9999;
+          background: #050508;
+          display: flex; align-items: center; justify-content: center;
+          flex-direction: column; gap: 32px;
+        }
+        .intro-overlay.slide-out { animation: introSlideUp 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+
+        .intro-logo-wrap { display: flex; align-items: center; gap: 0; perspective: 800px; }
+        .intro-letter {
+          font-size: clamp(28px, 5vw, 52px); font-weight: 800;
+          background: linear-gradient(135deg, var(--gold-light), var(--gold), #FF6B35);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          opacity: 0; display: inline-block;
+          animation: letterReveal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .intro-tagline {
+          font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400;
+          color: rgba(212,168,67,0.5); letter-spacing: 4px; text-transform: uppercase;
+          opacity: 0; transition: opacity 0.8s ease 1.2s;
+        }
+        .intro-tagline.visible { opacity: 1; }
+
+        .intro-line {
+          width: 0; height: 1px;
+          background: linear-gradient(90deg, transparent, var(--gold), transparent);
+          transition: width 1s ease 0.8s;
+        }
+        .intro-line.expanded { width: 240px; }
+
+        .particle {
+          position: absolute; width: 4px; height: 4px; border-radius: 50%;
+          background: var(--gold); pointer-events: none;
+          animation: particleBurst 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .site-content { transition: none; }
+        .site-content.revealed { animation: siteReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+        .typed-cursor { display: inline-block; animation: cursorBlink 0.8s infinite; color: var(--gold); }
+
+        .shimmer-text {
+          background: linear-gradient(90deg, var(--gold-light) 0%, #fff 40%, var(--gold-light) 60%, var(--gold) 100%);
+          background-size: 200% auto;
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          animation: shimmer 3s linear infinite;
+        }
         
         .fade-up { animation: fadeUp 0.8s ease forwards; }
         .fade-up-1 { animation-delay: 0.1s; opacity: 0; }
@@ -354,6 +436,44 @@ const GoldenSignature = () => {
         .fade-up-4 { animation-delay: 0.4s; opacity: 0; }
         .float { animation: float 4s ease-in-out infinite; }
       `}</style>
+
+      {/* Intro Loader */}
+      {introPhase < 4 && (
+        <div className={`intro-overlay${introPhase === 3 ? ' slide-out' : ''}`} style={{ position: 'fixed' }}>
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+            {/* Particles */}
+            {introPhase >= 2 && Array.from({ length: 20 }).map((_, i) => {
+              const angle = (i / 20) * Math.PI * 2;
+              const dist = 80 + Math.random() * 120;
+              return (
+                <div key={i} className="particle" style={{
+                  left: '50%', top: '50%',
+                  '--tx': Math.cos(angle) * dist + 'px',
+                  '--ty': Math.sin(angle) * dist + 'px',
+                  animationDelay: (i * 0.03) + 's',
+                  background: i % 3 === 0 ? 'var(--gold-light)' : i % 3 === 1 ? 'var(--gold)' : '#FF6B35',
+                  width: (2 + Math.random() * 4) + 'px',
+                  height: (2 + Math.random() * 4) + 'px',
+                }} />
+              );
+            })}
+            <div className="intro-logo-wrap">
+              {'The Golden Signature'.split('').map((char, i) => (
+                <span key={i} className="intro-letter" style={{
+                  animationDelay: introPhase >= 1 ? (i * 0.04) + 's' : '999s',
+                  marginRight: char === ' ' ? '0.25em' : '0',
+                }}>
+                  {char === ' ' ? ' ' : char}
+                </span>
+              ))}
+            </div>
+            <div className={`intro-line${introPhase >= 1 ? ' expanded' : ''}`} />
+            <div className={`intro-tagline${introPhase >= 1 ? ' visible' : ''}`}>
+              AI-Powered Business Software
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="noise" />
       <div className="grid-bg" />
@@ -380,9 +500,19 @@ const GoldenSignature = () => {
             AI-Powered Business Software
           </div>
           <h1 className="hero-title fade-up fade-up-2">
-            <span className="line-1">We Build Software</span>
-            <span className="line-2">That Thinks.</span>
-            <span className="line-3">Custom AI Solutions for Real Business Problems</span>
+            {introPhase >= 4 ? (
+              <>
+                <span className="line-1">We Build Software</span>
+                <span className="line-2 shimmer-text">That Thinks.</span>
+                <span className="line-3">Custom AI Solutions for Real Business Problems</span>
+              </>
+            ) : (
+              <>
+                <span className="line-1">We Build Software</span>
+                <span className="line-2">That Thinks.</span>
+                <span className="line-3">Custom AI Solutions for Real Business Problems</span>
+              </>
+            )}
           </h1>
           <p className="hero-sub fade-up fade-up-3">
             The Golden Signature creates intelligent software that automates workflows, 
