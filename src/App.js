@@ -858,10 +858,7 @@ const GoldenSignature = () => {
                       <textarea className="form-input" rows={3} placeholder="Links to websites, apps, or describe the style you're going for..." value={formData.designNotes} onChange={e => setFormData(p => ({...p, designNotes: e.target.value}))} style={{ resize: 'none' }} />
                     </div>
 
-                    <div style={{ padding: '20px 24px', background: 'rgba(212,168,67,0.06)', border: '1px solid rgba(212,168,67,0.15)', borderRadius: 12 }}>
-                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'var(--gold-light)', fontWeight: 600, marginBottom: 4 }}>✦ AI Analysis Included</p>
-                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', lineHeight: 1.6 }}>After you submit, our AI will analyze your requirements and generate a detailed project brief — including recommended tech stack, feature breakdown, and estimated timeline. You'll receive this within 24 hours.</p>
-                    </div>
+
                   </div>
                 )}
 
