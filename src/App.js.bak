@@ -4,7 +4,7 @@ const GoldenSignature = () => {
   const [scrollY, setScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [formData, setFormData] = useState({ step: 1, name: '', company: '', email: '', phone: '', industry: '', appType: '', primaryUsers: '', problem: '', features: [], integrations: [], additionalFeatures: '', timeline: '', budget: '', designNotes: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', company: '', email: '', phone: '', interest: '', message: '' });
   const [formLoading, setFormLoading] = useState(false);
   const [formSent, setFormSent] = useState(false);
   const [formError, setFormError] = useState('');
@@ -14,50 +14,14 @@ const GoldenSignature = () => {
     setFormLoading(true);
     setFormError('');
     try {
-      const message = [
-        'NEW PROJECT INTAKE — AI ANALYSIS REQUEST',
-        '',
-        'CLIENT INFORMATION:',
-        'Name: ' + formData.name,
-        'Company: ' + (formData.company || 'Not provided'),
-        'Email: ' + formData.email,
-        'Phone: ' + (formData.phone || 'Not provided'),
-        'Industry: ' + (formData.industry || 'Not specified'),
-        '',
-        'PROJECT DETAILS:',
-        'Application Type: ' + (formData.appType || 'Not specified'),
-        'Primary Users: ' + (formData.primaryUsers || 'Not specified'),
-        'Problem to Solve: ' + (formData.problem || 'Not described'),
-        '',
-        'FEATURES REQUESTED:',
-        (formData.features && formData.features.length > 0 ? formData.features.join(', ') : 'None selected'),
-        '',
-        'INTEGRATIONS NEEDED:',
-        (formData.integrations && formData.integrations.length > 0 ? formData.integrations.join(', ') : 'None selected'),
-        '',
-        'ADDITIONAL REQUIREMENTS:',
-        (formData.additionalFeatures || 'None'),
-        '',
-        'TIMELINE: ' + (formData.timeline || 'Not specified'),
-        'BUDGET: ' + (formData.budget || 'Not specified'),
-        'DESIGN NOTES: ' + (formData.designNotes || 'None'),
-      ].join('\n');
-
       const res = await fetch('https://aup3wz6azh.execute-api.us-east-1.amazonaws.com/prod/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          type: 'project_intake',
-          subject: 'New Project Intake: ' + (formData.appType || 'Custom App') + ' for ' + (formData.company || formData.name) + ' (' + (formData.industry || 'Unknown Industry') + ')',
-          message: message
-        })
+        body: JSON.stringify(formData)
       });
-      if (res.ok) { setFormSent(true); }
+      if (res.ok) { setFormSent(true); setFormData({ name: '', company: '', email: '', phone: '', interest: '', message: '' }); }
       else setFormError('Something went wrong. Please try again.');
-    } catch (e) { setFormError('Failed to send. Please email us directly at nyceguy@thegoldensignature.com'); }
+    } catch (e) { setFormError('Failed to send. Please email us directly.'); }
     finally { setFormLoading(false); }
   };
 
@@ -542,226 +506,34 @@ const GoldenSignature = () => {
         </div>
       </section>
 
-      {/* Contact — AI Intake Form */}
-      <section id="contact" style={{ padding: '120px 48px', background: 'var(--bg)' }}>
-        <div style={{ maxWidth: 760, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <div className="section-label">Start Your Project</div>
-            <h2 className="section-title" style={{ marginBottom: 16 }}>Tell Us What You're Building</h2>
-            <p className="section-sub" style={{ margin: '0 auto' }}>Answer a few questions and our AI will analyze your requirements. You'll hear from us within 24 hours with a detailed proposal outline.</p>
-          </div>
-
+      {/* Contact */}
+      <section id="contact" className="contact">
+        <div className="contact-inner">
+          <div className="section-label">Get In Touch</div>
+          <h2 className="section-title" style={{ marginBottom: 16 }}>Ready to Build<br />Something Remarkable?</h2>
+          <p className="section-sub" style={{ margin: '0 auto' }}>Schedule a SmartLift walkthrough or discuss a custom AI project for your business.</p>
           {formSent ? (
-            <div style={{ padding: 64, background: 'linear-gradient(135deg, rgba(212,168,67,0.08), rgba(108,99,255,0.08))', border: '1px solid rgba(212,168,67,0.25)', borderRadius: 24, textAlign: 'center' }}>
-              <div style={{ fontSize: 64, marginBottom: 24 }}>✦</div>
-              <h3 style={{ fontSize: 28, fontWeight: 800, marginBottom: 16, letterSpacing: -1 }}>We're On It</h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", color: 'var(--text-dim)', fontSize: 17, lineHeight: 1.7, maxWidth: 400, margin: '0 auto 32px' }}>
-                Our AI has analyzed your requirements. You'll receive a detailed project brief and proposal outline within 24 hours.
-              </p>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 24px', background: 'rgba(212,168,67,0.1)', border: '1px solid rgba(212,168,67,0.2)', borderRadius: 100, fontSize: 14, color: 'var(--gold-light)', fontFamily: "'DM Sans', sans-serif" }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--gold)', display: 'inline-block' }} />
-                AI Analysis Complete
-              </div>
+            <div style={{ marginTop: 48, padding: 48, background: 'rgba(212,168,67,0.08)', border: '1px solid rgba(212,168,67,0.25)', borderRadius: 16, textAlign: 'center' }}>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>✦</div>
+              <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 12 }}>Message Sent!</h3>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", color: 'var(--text-dim)' }}>Thanks for reaching out. We'll be in touch within 24 hours.</p>
             </div>
           ) : (
-            <div style={{ background: 'var(--bg-2)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 24, overflow: 'hidden' }}>
-
-              {/* Progress Bar */}
-              <div style={{ padding: '28px 40px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  {[1,2,3,4].map(s => (
-                    <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <div style={{ width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, background: formData.step >= s ? 'linear-gradient(135deg, var(--gold-light), var(--gold))' : 'rgba(255,255,255,0.06)', color: formData.step >= s ? '#000' : 'var(--text-dim)', border: formData.step >= s ? 'none' : '1px solid rgba(255,255,255,0.1)', transition: 'all 0.3s' }}>
-                        {formData.step > s ? '✓' : s}
-                      </div>
-                      {s < 4 && <div style={{ width: 32, height: 2, background: formData.step > s ? 'var(--gold)' : 'rgba(255,255,255,0.06)', borderRadius: 2, transition: 'background 0.3s' }} />}
-                    </div>
-                  ))}
-                </div>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)' }}>
-                  Step {formData.step} of 4
-                </span>
+            <div className="contact-form">
+              <div className="form-group">
+                <input className="form-input" placeholder="Your Name *" value={formData.name} onChange={e => setFormData(p => ({...p, name: e.target.value}))} />
+                <input className="form-input" placeholder="Company" value={formData.company} onChange={e => setFormData(p => ({...p, company: e.target.value}))} />
+              </div>
+              <div className="form-group">
+                <input className="form-input" type="email" placeholder="Email Address *" value={formData.email} onChange={e => setFormData(p => ({...p, email: e.target.value}))} />
+                <input className="form-input" placeholder="Phone (optional)" value={formData.phone} onChange={e => setFormData(p => ({...p, phone: e.target.value}))} />
               </div>
 
-              <div style={{ padding: 40 }}>
-
-                {/* Step 1 — About You */}
-                {formData.step === 1 && (
-                  <div>
-                    <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8, letterSpacing: -0.5 }}>About You</h3>
-                    <p style={{ fontFamily: "'DM Sans', sans-serif", color: 'var(--text-dim)', marginBottom: 32, fontSize: 15 }}>Let's start with the basics.</p>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
-                      <input className="form-input" placeholder="Your Name *" value={formData.name} onChange={e => setFormData(p => ({...p, name: e.target.value}))} />
-                      <input className="form-input" placeholder="Company / Business Name" value={formData.company} onChange={e => setFormData(p => ({...p, company: e.target.value}))} />
-                      <input className="form-input" type="email" placeholder="Email Address *" value={formData.email} onChange={e => setFormData(p => ({...p, email: e.target.value}))} />
-                      <input className="form-input" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData(p => ({...p, phone: e.target.value}))} />
-                    </div>
-                    <div style={{ marginBottom: 16 }}>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Industry / Vertical</label>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                        {['Elevator Services', 'HVAC', 'Healthcare', 'Real Estate', 'Construction', 'Retail', 'Logistics', 'Financial Services', 'Legal', 'Restaurant / Food Service', 'Manufacturing', 'Other'].map(ind => (
-                          <button key={ind} onClick={() => setFormData(p => ({...p, industry: ind}))} style={{ padding: '8px 16px', borderRadius: 8, fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, cursor: 'pointer', border: '1px solid', transition: 'all 0.2s', background: formData.industry === ind ? 'rgba(212,168,67,0.15)' : 'rgba(255,255,255,0.04)', borderColor: formData.industry === ind ? 'var(--gold)' : 'rgba(255,255,255,0.08)', color: formData.industry === ind ? 'var(--gold-light)' : 'var(--text-dim)' }}>
-                            {ind}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 2 — Your Project */}
-                {formData.step === 2 && (
-                  <div>
-                    <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8, letterSpacing: -0.5 }}>Your Project</h3>
-                    <p style={{ fontFamily: "'DM Sans', sans-serif", color: 'var(--text-dim)', marginBottom: 32, fontSize: 15 }}>Help us understand what you need built.</p>
-
-                    <div style={{ marginBottom: 24 }}>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Type of Application</label>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                        {[
-                          ['🌐', 'Web Application', 'Browser-based software'],
-                          ['📱', 'Mobile App', 'iOS and/or Android'],
-                          ['🤖', 'AI Automation Tool', 'Automate workflows with AI'],
-                          ['📊', 'Dashboard / Analytics', 'Data visualization & insights'],
-                          ['🏪', 'Customer Portal', 'Client-facing self-service'],
-                          ['⚙️', 'Internal Tool', 'Internal team operations'],
-                        ].map(([icon, type, desc]) => (
-                          <button key={type} onClick={() => setFormData(p => ({...p, appType: type}))} style={{ padding: '16px 20px', borderRadius: 12, textAlign: 'left', cursor: 'pointer', border: '1px solid', transition: 'all 0.2s', background: formData.appType === type ? 'rgba(212,168,67,0.08)' : 'rgba(255,255,255,0.02)', borderColor: formData.appType === type ? 'var(--gold)' : 'rgba(255,255,255,0.08)' }}>
-                            <div style={{ fontSize: 20, marginBottom: 6 }}>{icon}</div>
-                            <div style={{ fontSize: 14, fontWeight: 700, color: formData.appType === type ? 'var(--gold-light)' : 'var(--text)', marginBottom: 2 }}>{type}</div>
-                            <div style={{ fontSize: 12, color: 'var(--text-dim)', fontFamily: "'DM Sans', sans-serif" }}>{desc}</div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div style={{ marginBottom: 16 }}>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Who are the primary users?</label>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                        {['My employees / team', 'My customers', 'Field technicians', 'Sales team', 'Management only', 'General public'].map(u => (
-                          <button key={u} onClick={() => setFormData(p => ({...p, primaryUsers: u}))} style={{ padding: '8px 16px', borderRadius: 8, fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, cursor: 'pointer', border: '1px solid', transition: 'all 0.2s', background: formData.primaryUsers === u ? 'rgba(212,168,67,0.15)' : 'rgba(255,255,255,0.04)', borderColor: formData.primaryUsers === u ? 'var(--gold)' : 'rgba(255,255,255,0.08)', color: formData.primaryUsers === u ? 'var(--gold-light)' : 'var(--text-dim)' }}>
-                            {u}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>What is the main problem you're solving? *</label>
-                      <textarea className="form-input" rows={4} placeholder="Describe your biggest pain point or opportunity. What's broken, slow, or missing in your current workflow?" value={formData.problem} onChange={e => setFormData(p => ({...p, problem: e.target.value}))} style={{ resize: 'none' }} />
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 3 — Features */}
-                {formData.step === 3 && (
-                  <div>
-                    <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8, letterSpacing: -0.5 }}>Features & Capabilities</h3>
-                    <p style={{ fontFamily: "'DM Sans', sans-serif", color: 'var(--text-dim)', marginBottom: 32, fontSize: 15 }}>Select everything that applies to your project.</p>
-
-                    <div style={{ marginBottom: 24 }}>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Core Features Needed</label>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                        {['User login / accounts', 'AI / machine learning', 'Dashboard & analytics', 'Mobile responsive', 'Payment processing', 'Email notifications', 'SMS notifications', 'File uploads', 'API integrations', 'Reporting & exports', 'Multi-user roles', 'Customer portal', 'Scheduling / calendar', 'Maps & location', 'Real-time updates', 'Data imports', 'Document generation', 'E-signature'].map(f => (
-                          <button key={f} onClick={() => setFormData(p => ({ ...p, features: p.features && p.features.includes(f) ? p.features.filter(x => x !== f) : [...(p.features || []), f] }))} style={{ padding: '8px 16px', borderRadius: 8, fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, cursor: 'pointer', border: '1px solid', transition: 'all 0.2s', background: formData.features && formData.features.includes(f) ? 'rgba(212,168,67,0.15)' : 'rgba(255,255,255,0.04)', borderColor: formData.features && formData.features.includes(f) ? 'var(--gold)' : 'rgba(255,255,255,0.08)', color: formData.features && formData.features.includes(f) ? 'var(--gold-light)' : 'var(--text-dim)' }}>
-                            {formData.features && formData.features.includes(f) ? '✓ ' : ''}{f}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div style={{ marginBottom: 16 }}>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Integrations needed</label>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                        {['Stripe / Payments', 'QuickBooks', 'Google Maps', 'Salesforce', 'HubSpot', 'Twilio / SMS', 'SendGrid', 'Zapier', 'Slack', 'Google Calendar', 'DocuSign', 'None needed'].map(i => (
-                          <button key={i} onClick={() => setFormData(p => ({ ...p, integrations: p.integrations && p.integrations.includes(i) ? p.integrations.filter(x => x !== i) : [...(p.integrations || []), i] }))} style={{ padding: '8px 16px', borderRadius: 8, fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, cursor: 'pointer', border: '1px solid', transition: 'all 0.2s', background: formData.integrations && formData.integrations.includes(i) ? 'rgba(108,99,255,0.15)' : 'rgba(255,255,255,0.04)', borderColor: formData.integrations && formData.integrations.includes(i) ? '#6C63FF' : 'rgba(255,255,255,0.08)', color: formData.integrations && formData.integrations.includes(i) ? '#A8A3FF' : 'var(--text-dim)' }}>
-                            {formData.integrations && formData.integrations.includes(i) ? '✓ ' : ''}{i}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Anything else to add?</label>
-                      <textarea className="form-input" rows={3} placeholder="Any specific requirements, data sources, or features not listed above..." value={formData.additionalFeatures} onChange={e => setFormData(p => ({...p, additionalFeatures: e.target.value}))} style={{ resize: 'none' }} />
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 4 — Timeline & Budget */}
-                {formData.step === 4 && (
-                  <div>
-                    <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8, letterSpacing: -0.5 }}>Timeline & Budget</h3>
-                    <p style={{ fontFamily: "'DM Sans', sans-serif", color: 'var(--text-dim)', marginBottom: 32, fontSize: 15 }}>Help us scope your project accurately.</p>
-
-                    <div style={{ marginBottom: 24 }}>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>When do you need this?</label>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                        {['ASAP — within 2 weeks', '1 month', '2-3 months', '3-6 months', 'Flexible / not urgent'].map(t => (
-                          <button key={t} onClick={() => setFormData(p => ({...p, timeline: t}))} style={{ padding: '10px 20px', borderRadius: 8, fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, cursor: 'pointer', border: '1px solid', transition: 'all 0.2s', background: formData.timeline === t ? 'rgba(212,168,67,0.15)' : 'rgba(255,255,255,0.04)', borderColor: formData.timeline === t ? 'var(--gold)' : 'rgba(255,255,255,0.08)', color: formData.timeline === t ? 'var(--gold-light)' : 'var(--text-dim)' }}>
-                            {t}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div style={{ marginBottom: 24 }}>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Project budget range</label>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                        {[
-                          ['Under $5,000', 'Small project or MVP'],
-                          ['$5,000 – $15,000', 'Medium complexity'],
-                          ['$15,000 – $30,000', 'Full platform build'],
-                          ['$30,000+', 'Enterprise solution'],
-                          ['Not sure yet', 'Need guidance on scoping'],
-                        ].map(([range, desc]) => (
-                          <button key={range} onClick={() => setFormData(p => ({...p, budget: range}))} style={{ padding: '14px 18px', borderRadius: 12, textAlign: 'left', cursor: 'pointer', border: '1px solid', transition: 'all 0.2s', background: formData.budget === range ? 'rgba(212,168,67,0.08)' : 'rgba(255,255,255,0.02)', borderColor: formData.budget === range ? 'var(--gold)' : 'rgba(255,255,255,0.08)' }}>
-                            <div style={{ fontSize: 14, fontWeight: 700, color: formData.budget === range ? 'var(--gold-light)' : 'var(--text)', marginBottom: 2 }}>{range}</div>
-                            <div style={{ fontSize: 12, color: 'var(--text-dim)', fontFamily: "'DM Sans', sans-serif" }}>{desc}</div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div style={{ marginBottom: 16 }}>
-                      <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', display: 'block', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}>Do you have any design references or examples you like?</label>
-                      <textarea className="form-input" rows={3} placeholder="Links to websites, apps, or describe the style you're going for..." value={formData.designNotes} onChange={e => setFormData(p => ({...p, designNotes: e.target.value}))} style={{ resize: 'none' }} />
-                    </div>
-
-                    <div style={{ padding: '20px 24px', background: 'rgba(212,168,67,0.06)', border: '1px solid rgba(212,168,67,0.15)', borderRadius: 12 }}>
-                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: 'var(--gold-light)', fontWeight: 600, marginBottom: 4 }}>✦ AI Analysis Included</p>
-                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: 'var(--text-dim)', lineHeight: 1.6 }}>After you submit, our AI will analyze your requirements and generate a detailed project brief — including recommended tech stack, feature breakdown, and estimated timeline. You'll receive this within 24 hours.</p>
-                    </div>
-                  </div>
-                )}
-
-                {/* Error */}
-                {formError && <p style={{ color: '#FF6B6B', fontFamily: "'DM Sans', sans-serif", fontSize: 14, marginTop: 16 }}>{formError}</p>}
-
-                {/* Navigation */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 32, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                  {formData.step > 1 ? (
-                    <button onClick={() => setFormData(p => ({...p, step: p.step - 1}))} style={{ padding: '12px 24px', borderRadius: 8, fontSize: 14, fontWeight: 600, background: 'transparent', color: 'var(--text-dim)', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.1)', fontFamily: "'DM Sans', sans-serif", transition: 'all 0.2s' }}>
-                      ← Back
-                    </button>
-                  ) : <div />}
-
-                  {formData.step < 4 ? (
-                    <button className="btn-primary" onClick={() => {
-                      if (formData.step === 1 && (!formData.name || !formData.email)) { setFormError('Name and email are required'); return; }
-                      if (formData.step === 2 && !formData.problem) { setFormError('Please describe the problem you are solving'); return; }
-                      setFormError('');
-                      setFormData(p => ({...p, step: p.step + 1}));
-                    }}>
-                      Continue →
-                    </button>
-                  ) : (
-                    <button className="btn-primary" onClick={handleSubmit} disabled={formLoading} style={{ minWidth: 200 }}>
-                      {formLoading ? '✦ Analyzing with AI...' : 'Submit & Get AI Brief →'}
-                    </button>
-                  )}
-                </div>
-              </div>
+              <textarea className="form-input" placeholder="Tell us about your project or questions..." value={formData.message} onChange={e => setFormData(p => ({...p, message: e.target.value}))} />
+              {formError && <p style={{ color: '#FF6B6B', fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>{formError}</p>}
+              <button className="btn-primary" style={{ alignSelf: 'stretch' }} onClick={handleSubmit} disabled={formLoading}>
+                {formLoading ? 'Sending...' : 'Send Message →'}
+              </button>
             </div>
           )}
         </div>
